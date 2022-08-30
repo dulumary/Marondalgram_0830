@@ -1,0 +1,11 @@
+spring:
+  mvc:
+    static-path-pattern: /static/**
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/marondalgram_0830
+    username: root
+    password: root
