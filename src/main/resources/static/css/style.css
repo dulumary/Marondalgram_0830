@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+header {
+	height:40px;
+}
+
+.login-box {
+	width:400px;
+
+}
+
+.signup-box {
+	width:400px;
+	height:500px;
+}
