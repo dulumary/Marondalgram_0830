@@ -72,7 +72,7 @@
 			
 			
 			$("#isDuplicateBtn").on("click", function() {
-				
+					
 				let loginId = $("#loginIdInput").val();
 				
 				if(loginId == "") {
