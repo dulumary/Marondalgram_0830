@@ -1,5 +1,6 @@
 package com.marondal.marondalgram.post.bo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,8 @@ public class PostBO {
 		// 게시글 하나당 작성자 정보 를 조합하는 과정 
 		List<Post> postList = postDAO.selectPostList();
 		
+		List<PostDetail> postDetailList = new ArrayList<>();
+		
 		for(Post post : postList) {
 			
 			int userId = post.getUserId();
@@ -48,10 +51,12 @@ public class PostBO {
 			PostDetail postDetail = new PostDetail();
 			postDetail.setPost(post);
 			postDetail.setUser(user);
+			
+			postDetailList.add(postDetail);
 		}
 		
 		
-		return ;
+		return postDetailList;
 	}
 	
 	
