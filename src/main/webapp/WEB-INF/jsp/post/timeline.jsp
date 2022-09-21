@@ -53,7 +53,7 @@
 						</div>
 					
 						<div class="p-2">
-							<span class=""><i class="bi bi-heart"></i></span>  좋아요 10개
+							<a href="#" class="like-btn" data-post-id="${postDetail.post.id }"><span class=""><i class="bi bi-heart"></i></span></a>  좋아요 10개
 						</div>
 						
 						<div class="p-2" >
@@ -69,8 +69,8 @@
 							
 							<!--  댓글 입력 -->
 							<div class="d-flex mt-1">
-								<input type="text" class="form-control">
-								<button type="button" class="btn btn-primary">게시</button>
+								<input type="text" class="form-control" id="commentInput${postDetail.post.id }">
+								<button type="button" class="btn btn-primary comment-btn" data-post-id="${postDetail.post.id }">게시</button>
 							</div>
 							<!--  /댓글 입력 -->
 						
@@ -93,6 +93,61 @@
 	
 	<script>
 		$(document).ready(function() {
+			
+			$(".comment-btn").on("click", function(e) {
+				
+				let postId = $(this).data("post-id");
+				
+				// $("#commentInput6")
+				let comment = $("#commentInput" + postId).val();
+				
+				$.ajax({
+					type:"post"
+					, url:"/post/comment/create"
+					, data:{"postId":postId , "content":comment}
+					, success:function(data) {
+						
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("댓글 쓰기 실패");
+						}
+						
+					}
+					, error:function() {
+						alert("댓글 쓰기 에러");
+					}
+				});
+			});
+			
+			
+			$(".like-btn").on("click", function(e) {
+				
+				e.preventDefault();
+				
+				let postId = $(this).data("post-id");
+				
+				$.ajax({
+					type:"get"
+					, url:"/post/like"
+					, data:{"postId":postId}
+					, success:function(data) {
+						
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("좋아요 실패!");
+						}
+						
+					}
+					, error:function() {
+						alert("좋아요 에러");
+					}
+					
+				});
+				
+			});
+			
 			
 			$("#uploadBtn").on("click", function() {
 				
