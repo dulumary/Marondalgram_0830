@@ -27,5 +27,22 @@
 		)
 	
 	</insert>
+	
+	<select id="selectCommentList" parameterType="int" 
+	resultType="com.marondal.marondalgram.post.comment.model.Comment">
+		SELECT 
+			`id`
+			, `userId`
+			, `postId`
+			, `content`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`comment`
+		WHERE 
+			`postId` = #{postId}
+	
+	
+	</select>
 
 </mapper>

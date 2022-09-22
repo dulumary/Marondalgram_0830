@@ -77,8 +77,9 @@
 						<div class="p-2">
 							<div class="small">댓글</div>
 							<hr>
-							<div class="small"><b>유재석</b> 우와 진짜 귀엽네요!</div>
-							<div class="small"><b>바다</b> 데려다가 키워요!</div>
+							<c:forEach var="comment" items="${postDetail.commentList }">
+								<div class="small"><b>${comment.userId }</b> ${comment.content }</div>
+							</c:forEach>
 							
 							<!--  댓글 입력 -->
 							<div class="d-flex mt-1">

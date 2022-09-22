@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.marondal.marondalgram.common.FileManagerService;
+import com.marondal.marondalgram.post.comment.bo.CommentBO;
+import com.marondal.marondalgram.post.comment.model.Comment;
 import com.marondal.marondalgram.post.dao.PostDAO;
 import com.marondal.marondalgram.post.like.bo.LikeBO;
 import com.marondal.marondalgram.post.model.Post;
@@ -26,6 +28,9 @@ public class PostBO {
 	
 	@Autowired
 	private LikeBO likeBO;
+	
+	@Autowired
+	private CommentBO commentBO;
 	
 	// 게시글 정보를 전달 받아서 저장하는 기능
 	public int addPost(int userId, String content, MultipartFile file) {
@@ -55,11 +60,14 @@ public class PostBO {
 			int likeCount = likeBO.getLikeCount(post.getId());
 			boolean isLike = likeBO.isLike(loginUserId, post.getId());
 			
+			List<Comment> commentList = commentBO.getCommentList(post.getId());
+			
 			PostDetail postDetail = new PostDetail();
 			postDetail.setPost(post);
 			postDetail.setUser(user);
 			postDetail.setLikeCount(likeCount);
 			postDetail.setLike(isLike);
+			postDetail.setCommentList(commentList);
 			
 			postDetailList.add(postDetail);
 		}
