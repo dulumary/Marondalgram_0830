@@ -53,7 +53,20 @@
 						</div>
 					
 						<div class="p-2">
-							<a href="#" class="like-btn" data-post-id="${postDetail.post.id }"><span class=""><i class="bi bi-heart"></i></span></a>  좋아요 10개
+							
+							<c:choose>
+								<%-- 로그인한 사용자가 좋아요한 게시물 --%>
+								<c:when test="${postDetail.like}">
+									<i class="bi bi-heart-fill text-danger"></i>
+								</c:when>
+								<%-- 로그인한 사용자가 좋아요를 하지 않은 게시물--%>
+								<c:otherwise>
+									<a href="#" class="like-btn" data-post-id="${postDetail.post.id }"><span class=""><i class="bi bi-heart"></i></span></a>						
+								</c:otherwise>
+							
+							</c:choose>
+							
+							좋아요 ${postDetail.likeCount }개
 						</div>
 						
 						<div class="p-2" >
