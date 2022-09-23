@@ -77,8 +77,8 @@
 						<div class="p-2">
 							<div class="small">댓글</div>
 							<hr>
-							<c:forEach var="comment" items="${postDetail.commentList }">
-								<div class="small"><b>${comment.userId }</b> ${comment.content }</div>
+							<c:forEach var="commentDetail" items="${postDetail.commentList }">
+								<div class="small"><b>${commentDetail.user.name }</b> ${commentDetail.comment.content}</div>
 							</c:forEach>
 							
 							<!--  댓글 입력 -->
