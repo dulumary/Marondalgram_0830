@@ -44,8 +44,10 @@
 						<div class="d-flex justify-content-between  p-2">
 							<div>${postDetail.user.name }</div>
 							
-							<a href="#" class="more-btn" data-post-id="${postDetail.post.id }" data-toggle="modal" data-target="#moreModal"><i class="bi bi-three-dots"></i></a>
-						
+							<%-- 해당 게시글이 로그인한 사용자의 게시글인경우 more 버튼 노출 --%>
+							<c:if test="${userId eq postDetail.user.id }">
+								<a href="#" class="more-btn" data-post-id="${postDetail.post.id }" data-toggle="modal" data-target="#moreModal"><i class="bi bi-three-dots"></i></a>
+							</c:if>
 						</div>
 						
 						<div>
