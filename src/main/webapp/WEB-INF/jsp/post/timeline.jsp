@@ -43,7 +43,8 @@
 					<div class="border rounded mt-2">
 						<div class="d-flex justify-content-between  p-2">
 							<div>${postDetail.user.name }</div>
-							<i class="bi bi-three-dots"></i>
+							
+							<a href="#" class="more-btn" data-post-id="${postDetail.post.id }" data-toggle="modal" data-target="#moreModal"><i class="bi bi-three-dots"></i></a>
 						
 						</div>
 						
@@ -57,7 +58,7 @@
 							<c:choose>
 								<%-- 로그인한 사용자가 좋아요한 게시물 --%>
 								<c:when test="${postDetail.like}">
-									<i class="bi bi-heart-fill text-danger"></i>
+									<a href="#" class="unlike-btn" data-post-id="${postDetail.post.id }" ><i class="bi bi-heart-fill text-danger"></i></a> 
 								</c:when>
 								<%-- 로그인한 사용자가 좋아요를 하지 않은 게시물--%>
 								<c:otherwise>
@@ -104,9 +105,59 @@
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
 	
 	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="moreModal" tabindex="-1" role="dialog">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      
+	      <div class="modal-body text-center">
+	        <a href="#" id="deleteBtn"> 삭제하기 </a>
+	      </div>
+	      
+	    </div>
+	  </div>
+	</div>
 	
 	<script>
 		$(document).ready(function() {
+			
+			
+			$("#deleteBtn").on("click", function(e) {
+				
+				e.preventDefault();
+				
+				let postId = $(this).data("post-id");
+				
+				
+				$.ajax({
+					type:"get"
+					, url:"/post/delete"
+					, data:{"postId":postId}
+					, success:function(data) {
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("삭제 실패");
+						}
+						
+					}
+					, error:function() {
+						alert("삭제 에러");
+					}
+				});
+				
+			});
+			
+			
+			$(".more-btn").on("click", function() {
+				// 모달의 삭제하기 a 태그에 data-post-id 속성에, 
+				// 현재 more-btn이 포함된 postId를 저장한다. 
+				let postId = $(this).data("post-id");
+				
+				$("#deleteBtn").data("post-id", postId);
+				
+				
+			});
 			
 			$(".comment-btn").on("click", function(e) {
 				
@@ -132,6 +183,33 @@
 						alert("댓글 쓰기 에러");
 					}
 				});
+			});
+			
+			$(".unlike-btn").on("click", function(e) {
+				
+				e.preventDefault();
+				
+				let postId = $(this).data("post-id");
+				
+				$.ajax({
+					type:"get"
+					, url:"/post/unlike"
+					, data:{"postId":postId}
+					, success:function(data) {
+						
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("좋아요 취소 실패");
+						}
+						
+					}
+					, error:function() {
+						alert("좋아요 취소 에러")
+					}
+				});
+				
+				
 			});
 			
 			

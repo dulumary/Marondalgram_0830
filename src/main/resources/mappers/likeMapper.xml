@@ -23,6 +23,17 @@
 	
 	</insert>
 	
+	<delete id="deleteLike" parameterType="map">
+		DELETE FROM 
+			`like`
+		WHERE 
+			`userId` = #{userId}
+			AND `postId` = #{postId}
+	
+	</delete>
+	
+	
+	
 	<select id="selectCountLike" parameterType="int" resultType="int">
 	
 		SELECT 
@@ -45,6 +56,14 @@
 		
 	
 	</select>
+	
+	<delete id="deleteLikeByPostId" parameterType="int">
+		DELETE FROM 
+			`like`
+		WHERE
+			`postId` = #{postId}
+	
+	</delete>
 
 
 </mapper>

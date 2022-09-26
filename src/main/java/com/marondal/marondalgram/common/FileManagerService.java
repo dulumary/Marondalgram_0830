@@ -60,5 +60,52 @@ public class FileManagerService {
 		return "/images" + directoryName + file.getOriginalFilename();
 		
 	}
+	
+	
+	
+	// 파일 삭제 기능
+	public static boolean removeFile(String filePath) { // /images/2_90812098510/test.png
+		
+		// 삭제 경로는 /images 를 제거 하고,
+		// 실제 파일 저장 경로룰 이어 붙여주면 된다. 
+		// D:\\김인규쌤\\web_0823\\spring\\memo\\upload/2_90812098510/test.png
+		
+		if(filePath == null) {
+			return true;
+		}
+		
+		String realFilePath = FILE_UPLOAD_PATH + filePath.replace("/images", "");
+		
+		Path path = Paths.get(realFilePath);
+		// 파일이 있는지 확인
+		if(Files.exists(path)) {
+			try {
+				Files.delete(path);
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+				return false;
+			}
+		}
+		
+//		D:\\김인규쌤\\web_0823\\spring\\memo\\upload/2_90812098510
+		
+		path = path.getParent();
+		
+		// 디렉토리 존재하는
+		if(Files.exists(path)) {
+			try {
+				Files.delete(path);
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+				
+				return false;
+			}
+		}
+		
+		return true;
+		
+	}
 
 }
